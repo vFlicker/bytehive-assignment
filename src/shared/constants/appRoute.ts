@@ -1,4 +1,4 @@
-export const AppRoute = {
-  Dashboard: '/',
-  Login: '/login',
-};
+export const enum AppRoute {
+  Dashboard = '/',
+  Login = '/login',
+}
