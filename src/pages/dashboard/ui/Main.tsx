@@ -1,7 +1,7 @@
 import { Button, styled, Typography } from '@mui/material';
 
 import { IconName } from '~/shared/tokens';
-import { Icon } from '~/shared/ui/Icon';
+import { Icon } from '~/shared/ui';
 
 export function Main(): JSX.Element {
   return (

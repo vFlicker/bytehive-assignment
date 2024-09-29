@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 
 import { IconName } from '~/shared/tokens';
-import { Icon } from '~/shared/ui/Icon';
+import { Icon } from '~/shared/ui';
 
 export function TopBar(): JSX.Element {
   return (

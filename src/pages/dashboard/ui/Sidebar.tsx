@@ -12,7 +12,7 @@ import {
 
 import lightLogoIcon from '~/shared/assets/images/logo-light.svg';
 import { IconName } from '~/shared/tokens';
-import { Icon } from '~/shared/ui/Icon';
+import { Icon } from '~/shared/ui';
 
 const dashboardMenuItems = [
   { text: 'Overview', icon: <Icon name={IconName.HomeSmile} /> },
