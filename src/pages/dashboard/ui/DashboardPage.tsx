@@ -1,16 +1,27 @@
-import { Link } from 'react-router-dom';
+import { styled } from '@mui/material';
 
-import { AppRoute } from '~/shared/constants';
+import { Main } from './Main';
+import { Sidebar } from './Sidebar';
+import { TopBar } from './TopBar';
 
 export function DashboardPage(): JSX.Element {
   return (
-    <div>
-      <header>
-        <Link to={AppRoute.Dashboard}>Logo</Link>
-      </header>
-      <main>
-        <h1>Dashboard</h1>
-      </main>
-    </div>
+    <StyledDashboardLayout>
+      <Sidebar />
+      <StyledFoo>
+        <TopBar />
+        <Main />
+      </StyledFoo>
+    </StyledDashboardLayout>
   );
 }
+
+const StyledDashboardLayout = styled('div')`
+  display: grid;
+  grid-template-columns: 280px 1fr;
+`;
+
+const StyledFoo = styled('div')`
+  display: flex;
+  flex-direction: column;
+`;
