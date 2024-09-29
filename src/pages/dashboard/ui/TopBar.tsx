@@ -1,4 +1,3 @@
-import { Notifications as NotificationsIcon } from '@mui/icons-material';
 import {
   AppBar,
   Avatar,
@@ -7,6 +6,9 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+
+import { IconName } from '~/shared/tokens';
+import { Icon } from '~/shared/ui/Icon';
 
 export function TopBar(): JSX.Element {
   return (
@@ -17,7 +19,7 @@ export function TopBar(): JSX.Element {
             Devias
           </Typography>
           <IconButton color="inherit">
-            <NotificationsIcon />
+            <Icon name={IconName.Bell} />
           </IconButton>
           <Avatar sx={{ ml: 2 }}>JD</Avatar>
         </Toolbar>

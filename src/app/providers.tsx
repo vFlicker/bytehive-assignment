@@ -4,6 +4,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import type { Router } from '@remix-run/router/dist/router';
 import { RouterProvider } from 'react-router-dom';
 
+import { SpriteWithIcons } from '~/shared/tokens';
+
 import { Font, globalFonts, globalResets } from '../shared/tokens';
 
 type ProvidersProps = {
@@ -100,6 +102,8 @@ export function Providers({ router }: ProvidersProps) {
       <Global styles={globalResets} />
 
       <RouterProvider router={router} />
+
+      <SpriteWithIcons />
     </ThemeProvider>
   );
 }

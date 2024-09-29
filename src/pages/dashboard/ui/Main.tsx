@@ -1,12 +1,14 @@
-import { Sync as SyncIcon } from '@mui/icons-material';
 import { Button, styled, Typography } from '@mui/material';
+
+import { IconName } from '~/shared/tokens';
+import { Icon } from '~/shared/ui/Icon';
 
 export function Main(): JSX.Element {
   return (
     <StyledContainer>
       <Typography variant="h6">E-commerce</Typography>
 
-      <Button variant="contained" startIcon={<SyncIcon />}>
+      <Button variant="contained" startIcon={<Icon name={IconName.Refresh} />}>
         Sync Data
       </Button>
     </StyledContainer>

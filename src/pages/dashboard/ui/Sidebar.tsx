@@ -1,16 +1,4 @@
 import {
-  BarChart as AnalyticsIcon,
-  ChevronRight as ChevronRightIcon,
-  CurrencyBitcoin as CryptoIcon,
-  Description as DocumentationIcon,
-  Home as HomeIcon,
-  Inventory as ProductsIcon,
-  LocalShipping as LogisticsIcon,
-  Receipt as InvoicesIcon,
-  ShoppingBasket as OrdersIcon,
-  ShoppingCart as EcommerceIcon,
-} from '@mui/icons-material';
-import {
   Box,
   Button,
   Drawer,
@@ -23,19 +11,21 @@ import {
 } from '@mui/material';
 
 import lightLogoIcon from '~/shared/assets/images/logo-light.svg';
+import { IconName } from '~/shared/tokens';
+import { Icon } from '~/shared/ui/Icon';
 
 const dashboardMenuItems = [
-  { text: 'Overview', icon: <HomeIcon /> },
-  { text: 'Analytics', icon: <AnalyticsIcon /> },
-  { text: 'Ecommerce', icon: <EcommerceIcon /> },
-  { text: 'Crypto', icon: <CryptoIcon /> },
+  { text: 'Overview', icon: <Icon name={IconName.HomeSmile} /> },
+  { text: 'Analytics', icon: <Icon name={IconName.BarChart} /> },
+  { text: 'Ecommerce', icon: <Icon name={IconName.LineChartUp} /> },
+  { text: 'Crypto', icon: <Icon name={IconName.CurrencyBitcoin} /> },
 ];
 
 const analyticsMenuItems = [
-  { text: 'Products', icon: <ProductsIcon /> },
-  { text: 'Orders', icon: <OrdersIcon /> },
-  { text: 'Invoices', icon: <InvoicesIcon /> },
-  { text: 'Logistics', icon: <LogisticsIcon /> },
+  { text: 'Products', icon: <Icon name={IconName.ShoppingBag} /> },
+  { text: 'Orders', icon: <Icon name={IconName.ShoppingCart} /> },
+  { text: 'Invoices', icon: <Icon name={IconName.ReceiptCheck} /> },
+  { text: 'Logistics', icon: <Icon name={IconName.Truck} /> },
 ];
 
 export function Sidebar(): JSX.Element {
@@ -69,7 +59,7 @@ export function Sidebar(): JSX.Element {
                 {item.icon}
               </ListItemIcon>
               <StyledListItemText primary={item.text} />
-              <ChevronRightIcon />
+              <Icon name={IconName.ChevronRight} />
             </StyledListItemButton>
           ))}
         </List>
@@ -77,7 +67,7 @@ export function Sidebar(): JSX.Element {
 
       <Button
         variant="outlined"
-        startIcon={<DocumentationIcon />}
+        startIcon={<Icon name={IconName.File} />}
         fullWidth
         sx={{
           color: 'white',
