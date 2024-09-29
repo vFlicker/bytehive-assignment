@@ -1,11 +1,4 @@
-import {
-  AppBar,
-  Avatar,
-  IconButton,
-  styled,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Avatar, IconButton, styled, Toolbar } from '@mui/material';
 
 import { IconName } from '~/shared/tokens';
 import { Icon } from '~/shared/ui';
@@ -14,21 +7,25 @@ export function TopBar(): JSX.Element {
   return (
     <>
       <StyledAppBar position="fixed" color="transparent" elevation={0}>
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Devias
-          </Typography>
+        <StyledToolbar>
           <IconButton color="inherit">
             <Icon name={IconName.Bell} />
           </IconButton>
-          <Avatar sx={{ ml: 2 }}>JD</Avatar>
-        </Toolbar>
+          <Avatar>JD</Avatar>
+        </StyledToolbar>
       </StyledAppBar>
       <Toolbar /> {/* Fixes the content position */}
     </>
   );
 }
 
+const StyledToolbar = styled(Toolbar)`
+  display: flex;
+  gap: 8px;
+  align-self: flex-end;
+`;
+
 const StyledAppBar = styled(AppBar)`
   height: 58px;
+  padding: 0 24px 0 284px;
 `;

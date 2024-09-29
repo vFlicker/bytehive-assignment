@@ -37,27 +37,18 @@ export function Sidebar(): JSX.Element {
         <List component="nav" aria-label="Main list">
           {dashboardMenuItems.map((item, index) => (
             <StyledListItemButton selected={index === 0} key={item.text}>
-              <ListItemIcon sx={{ color: 'inherit', minWidth: 40 }}>
-                {item.icon}
-              </ListItemIcon>
+              <StyledListItemIcon>{item.icon}</StyledListItemIcon>
               <StyledListItemText primary={item.text} />
             </StyledListItemButton>
           ))}
         </List>
 
-        <Typography
-          variant="overline"
-          sx={{ px: 2, mt: 2, mb: 1, opacity: 0.7 }}
-        >
-          ANALYTICS
-        </Typography>
+        <StyledMenuListTitle>Analytics</StyledMenuListTitle>
 
         <List component="nav" aria-label="Analytics list">
           {analyticsMenuItems.map((item) => (
             <StyledListItemButton key={item.text}>
-              <ListItemIcon sx={{ color: 'inherit', minWidth: 40 }}>
-                {item.icon}
-              </ListItemIcon>
+              <StyledListItemIcon>{item.icon}</StyledListItemIcon>
               <StyledListItemText primary={item.text} />
               <Icon name={IconName.ChevronRight} />
             </StyledListItemButton>
@@ -65,20 +56,13 @@ export function Sidebar(): JSX.Element {
         </List>
       </StyledListsWrapper>
 
-      <Button
+      <StyledDocumentationButton
         variant="outlined"
         startIcon={<Icon name={IconName.File} />}
         fullWidth
-        sx={{
-          color: 'white',
-          borderColor: 'rgba(255, 255, 255, 0.5)',
-          '&:hover': {
-            borderColor: 'white',
-          },
-        }}
       >
         Documentation
-      </Button>
+      </StyledDocumentationButton>
     </StyledDrawer>
   );
 }
@@ -101,6 +85,14 @@ const StyledLogo = styled('img')`
 
 const StyledListsWrapper = styled(Box)`
   margin-bottom: 20px;
+`;
+
+const StyledMenuListTitle = styled(Typography)`
+  color: #b5bcc4;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 `;
 
 const StyledListItemButton = styled(ListItemButton)`
@@ -127,9 +119,26 @@ const StyledListItemButton = styled(ListItemButton)`
   }
 `;
 
+const StyledListItemIcon = styled(ListItemIcon)`
+  color: inherit;
+  min-width: 40px;
+`;
+
 const StyledListItemText = styled(ListItemText)`
   .MuiListItemText-primary {
     font-size: 14px;
     font-weight: 600;
+  }
+`;
+
+const StyledDocumentationButton = styled(Button)`
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+  text-transform: none;
+  border: 1px solid #ffffff;
+  border-radius: 20px;
+
+  &:hover {
+    border-color: #ffffff;
   }
 `;
