@@ -10,9 +10,8 @@ import {
   Typography,
 } from '@mui/material';
 
-import lightLogoIcon from '~/shared/assets/images/logo-light.svg';
-import { IconName } from '~/shared/tokens';
-import { Icon } from '~/shared/ui';
+import { lightLogoIcon } from '~/shared/images';
+import { Icon, IconName } from '~/shared/ui';
 
 const dashboardMenuItems = [
   { text: 'Overview', icon: <Icon name={IconName.HomeSmile} /> },

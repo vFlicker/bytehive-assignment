@@ -1,25 +1,12 @@
 import styled from '@emotion/styled';
 
-const enum IconName {
-  ChevronRight = 'chevron-right',
-  File = 'file',
-  HomeSmile = 'home-smile',
-  BarChart = 'bar-chart',
-  LineChartUp = 'line-chart-up',
-  CurrencyBitcoin = 'currency-bitcoin',
-  ShoppingBag = 'shopping-bag',
-  ShoppingCart = 'shopping-cart',
-  ReceiptCheck = 'receipt-check',
-  Truck = 'truck',
-  Refresh = 'refresh',
-  Bell = 'bell',
-}
+import { IconName } from '~/shared/ui';
 
 const StyledSpriteWithIcons = styled.svg`
   display: none;
 `;
 
-function SpriteWithIcons() {
+export function SpriteWithIcons() {
   return (
     <StyledSpriteWithIcons xmlns="http://www.w3.org/2000/svg">
       <symbol id={IconName.ChevronRight} viewBox="0 0 16 16">
@@ -191,5 +178,3 @@ function SpriteWithIcons() {
     </StyledSpriteWithIcons>
   );
 }
-
-export { IconName, SpriteWithIcons };

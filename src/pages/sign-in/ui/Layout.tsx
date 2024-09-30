@@ -1,7 +1,6 @@
 import { Container, styled } from '@mui/material';
 
-import gradientBackgroundImage from '~/shared/assets/images/gradient-background.png';
-import darkLogoIcon from '~/shared/assets/images/logo-dark.svg';
+import { darkLogoIcon, gradientBackgroundImage } from '~/shared/images';
 
 type LayoutProps = {
   children: JSX.Element;

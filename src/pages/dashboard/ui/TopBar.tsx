@@ -1,7 +1,6 @@
 import { AppBar, Avatar, IconButton, styled, Toolbar } from '@mui/material';
 
-import { IconName } from '~/shared/tokens';
-import { Icon } from '~/shared/ui';
+import { Icon, IconName } from '~/shared/ui';
 
 export function TopBar(): JSX.Element {
   return (

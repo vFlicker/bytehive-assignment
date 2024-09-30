@@ -4,9 +4,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import type { Router } from '@remix-run/router/dist/router';
 import { RouterProvider } from 'react-router-dom';
 
-import { SpriteWithIcons } from '~/shared/tokens';
+import { SpriteWithIcons } from '~/app/tokens';
+import { FontType } from '~/shared/fonts';
 
-import { Font, globalFonts, globalResets } from '../shared/tokens';
+import { globalFonts, globalResets } from './tokens';
 
 type ProvidersProps = {
   router: Router;
@@ -14,29 +15,29 @@ type ProvidersProps = {
 
 const theme = createTheme({
   typography: {
-    fontFamily: Font.InterDisplay,
+    fontFamily: FontType.InterDisplay,
     h1: {
-      fontFamily: Font.PlusJakartaSans,
+      fontFamily: FontType.PlusJakartaSans,
       fontWeight: 700,
     },
     h2: {
-      fontFamily: Font.PlusJakartaSans,
+      fontFamily: FontType.PlusJakartaSans,
       fontWeight: 700,
     },
     h3: {
-      fontFamily: Font.PlusJakartaSans,
+      fontFamily: FontType.PlusJakartaSans,
       fontWeight: 700,
     },
     h4: {
-      fontFamily: Font.PlusJakartaSans,
+      fontFamily: FontType.PlusJakartaSans,
       fontWeight: 700,
     },
     h5: {
-      fontFamily: Font.PlusJakartaSans,
+      fontFamily: FontType.PlusJakartaSans,
       fontWeight: 700,
     },
     h6: {
-      fontFamily: Font.PlusJakartaSans,
+      fontFamily: FontType.PlusJakartaSans,
       fontWeight: 700,
     },
   },

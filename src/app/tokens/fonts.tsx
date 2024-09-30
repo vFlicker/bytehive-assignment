@@ -1,14 +1,11 @@
 import { css } from '@emotion/react';
 
-import interDisplayMedium from '../assets/fonts/InterDisplay-Medium.woff2';
-import interDisplayRegular from '../assets/fonts/InterDisplay-Regular.woff2';
-import interDisplaySemiBold from '../assets/fonts/InterDisplay-SemiBold.woff2';
-import plusJakartaSansBold from '../assets/fonts/PlusJakartaSans-Bold.woff2';
-
-export const enum Font {
-  InterDisplay = 'var(--font-inter-display)',
-  PlusJakartaSans = 'var(--font-plus-jakarta-sans)',
-}
+import {
+  interDisplayMedium,
+  interDisplayRegular,
+  interDisplaySemiBold,
+  plusJakartaSansBold,
+} from '~/shared/fonts';
 
 export const globalFonts = css`
   @font-face {

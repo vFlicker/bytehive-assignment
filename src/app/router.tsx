@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { DashboardPage } from '~/pages/dashboard';
 import { LoginPage, RegisterPage } from '~/pages/sign-in';
-import { AppRoute } from '~/shared/constants';
+import { AppRoute } from '~/shared/router';
 
 export const router = createBrowserRouter([
   {
