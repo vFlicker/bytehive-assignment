@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import { LoginPage, RegisterPage } from '~/pages/auth';
 import { DashboardPage } from '~/pages/dashboard';
-import { LoginPage, RegisterPage } from '~/pages/sign-in';
 import { AppRoute } from '~/shared/router';
 
 export const router = createBrowserRouter([
