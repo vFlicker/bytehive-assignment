@@ -1,7 +1,7 @@
 import { Container, styled } from '@mui/material';
 import { PropsWithChildren } from 'react';
 
-import { darkLogoIcon, gradientBackgroundImage } from '~/shared/images';
+import { darkLogoIcon, gradientBackgroundImage } from '~/shared/assets';
 
 type LayoutProps = PropsWithChildren;
 

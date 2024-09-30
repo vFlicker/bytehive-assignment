@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 
-import { lightLogoIcon } from '~/shared/images';
+import { lightLogoIcon } from '~/shared/assets';
 import { Icon, IconName } from '~/shared/ui';
 
 const dashboardMenuItems = [

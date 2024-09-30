@@ -5,7 +5,7 @@ import {
   interDisplayRegular,
   interDisplaySemiBold,
   plusJakartaSansBold,
-} from '~/shared/fonts';
+} from '~/shared/assets';
 
 export const globalFonts = css`
   @font-face {

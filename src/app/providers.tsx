@@ -6,11 +6,10 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 import { RouterProvider } from 'react-router-dom';
 
-import { SpriteWithIcons } from '~/app/tokens';
 import { queryClient } from '~/shared/api';
-import { FontType } from '~/shared/fonts';
+import { FontType } from '~/shared/assets';
 
-import { globalFonts, globalResets } from './tokens';
+import { globalFonts, globalResets, SpriteWithIcons } from './tokens';
 
 type ProvidersProps = {
   router: Router;
