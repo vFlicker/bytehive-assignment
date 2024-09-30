@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/system';
+import { Helmet } from 'react-helmet-async';
 
 import { AppRoute } from '~/shared/router';
 import { Link } from '~/shared/ui';
@@ -16,6 +17,10 @@ import { Layout } from './Layout';
 export function LoginPage(): JSX.Element {
   return (
     <Layout>
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
+
       <Login />
     </Layout>
   );

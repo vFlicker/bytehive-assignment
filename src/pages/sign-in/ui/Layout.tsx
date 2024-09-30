@@ -1,10 +1,9 @@
 import { Container, styled } from '@mui/material';
+import { PropsWithChildren } from 'react';
 
 import { darkLogoIcon, gradientBackgroundImage } from '~/shared/images';
 
-type LayoutProps = {
-  children: JSX.Element;
-};
+type LayoutProps = PropsWithChildren;
 
 export function Layout({ children }: LayoutProps): JSX.Element {
   return (

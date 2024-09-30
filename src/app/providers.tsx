@@ -2,6 +2,7 @@ import { Global, ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import type { Router } from '@remix-run/router/dist/router';
+import { HelmetProvider } from 'react-helmet-async';
 import { RouterProvider } from 'react-router-dom';
 
 import { SpriteWithIcons } from '~/app/tokens';
@@ -96,15 +97,17 @@ const theme = createTheme({
 
 export function Providers({ router }: ProvidersProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <HelmetProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
 
-      <Global styles={globalFonts} />
-      <Global styles={globalResets} />
+        <Global styles={globalFonts} />
+        <Global styles={globalResets} />
 
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
 
-      <SpriteWithIcons />
-    </ThemeProvider>
+        <SpriteWithIcons />
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }

@@ -1,5 +1,6 @@
 import { Card, CardHeader, Typography } from '@mui/material';
 import { styled } from '@mui/system';
+import { Helmet } from 'react-helmet-async';
 
 import { AppRoute } from '~/shared/router';
 import { Link } from '~/shared/ui';
@@ -9,6 +10,10 @@ import { Layout } from './Layout';
 export function RegisterPage(): JSX.Element {
   return (
     <Layout>
+      <Helmet>
+        <title>Register</title>
+      </Helmet>
+
       <Register />
     </Layout>
   );
