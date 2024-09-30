@@ -7,8 +7,11 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/system';
+import { SyntheticEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 
+import { usePostApiAuthLogin } from '~/shared/api';
+import { tokenStorage } from '~/shared/libs';
 import { AppRoute } from '~/shared/router';
 import { Link } from '~/shared/ui';
 
@@ -27,6 +30,31 @@ export function LoginPage(): JSX.Element {
 }
 
 function Login(): JSX.Element {
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const mutation = usePostApiAuthLogin();
+
+  const handleSubmit = async (evt: SyntheticEvent) => {
+    evt.preventDefault();
+
+    if (emailRef.current !== null && passwordRef.current !== null) {
+      try {
+        const data = {
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        };
+        // TODO: Fix types in swagger. Return `token` instead of `accessToken`.
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const { token } = await mutation.mutateAsync({ data });
+        tokenStorage.saveToken(token);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  };
+
   return (
     <StyledCard>
       <StyledCardHeader
@@ -50,9 +78,19 @@ function Login(): JSX.Element {
         }
       />
       <StyledCardContent>
-        <StyledForm>
-          <TextField label="Email address" variant="outlined" fullWidth />
-          <TextField label="Password" variant="outlined" fullWidth />
+        <StyledForm onSubmit={handleSubmit}>
+          <TextField
+            inputRef={emailRef}
+            label="Email address"
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            inputRef={passwordRef}
+            label="Password"
+            variant="outlined"
+            fullWidth
+          />
           <Button type="submit" fullWidth variant="contained" color="primary">
             Log in
           </Button>

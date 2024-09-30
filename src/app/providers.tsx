@@ -2,10 +2,12 @@ import { Global, ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import type { Router } from '@remix-run/router/dist/router';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 import { RouterProvider } from 'react-router-dom';
 
 import { SpriteWithIcons } from '~/app/tokens';
+import { queryClient } from '~/shared/api';
 import { FontType } from '~/shared/fonts';
 
 import { globalFonts, globalResets } from './tokens';
@@ -97,17 +99,19 @@ const theme = createTheme({
 
 export function Providers({ router }: ProvidersProps) {
   return (
-    <HelmetProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+    <QueryClientProvider client={queryClient}>
+      <HelmetProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
 
-        <Global styles={globalFonts} />
-        <Global styles={globalResets} />
+          <Global styles={globalFonts} />
+          <Global styles={globalResets} />
 
-        <RouterProvider router={router} />
+          <RouterProvider router={router} />
 
-        <SpriteWithIcons />
-      </ThemeProvider>
-    </HelmetProvider>
+          <SpriteWithIcons />
+        </ThemeProvider>
+      </HelmetProvider>
+    </QueryClientProvider>
   );
 }
