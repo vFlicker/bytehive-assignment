@@ -130,7 +130,7 @@ export function ProductList(): JSX.Element {
           <StyledButton
             variant="text"
             color="inherit"
-            endIcon={<Icon name={IconName.Arrow} />}
+            endIcon={<Icon name={IconName.ArrowRight} />}
           >
             See All Products
           </StyledButton>

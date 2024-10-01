@@ -13,10 +13,10 @@ export function DashboardPage(): JSX.Element {
       </Helmet>
 
       <Sidebar />
-      <StyledFoo>
+      <DashboardContainer>
         <TopBar />
         <Main />
-      </StyledFoo>
+      </DashboardContainer>
     </StyledDashboardLayout>
   );
 }
@@ -26,7 +26,7 @@ const StyledDashboardLayout = styled('div')`
   grid-template-columns: 280px 1fr;
 `;
 
-const StyledFoo = styled('div')`
+const DashboardContainer = styled('div')`
   display: flex;
   flex-direction: column;
 `;

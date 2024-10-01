@@ -9,7 +9,7 @@ export function Main(): JSX.Element {
   return (
     <StyledContainer>
       <MainHeader>
-        <Typography variant="h6">E-commerce</Typography>
+        <Typography variant="h4">E-commerce</Typography>
 
         <Button
           variant="contained"
@@ -31,7 +31,7 @@ const StyledContainer = styled('main')`
   gap: 32px;
   width: 100%;
   max-width: 1440px;
-  padding: 24px 24px 64px 24px;
+  padding: 24px 100px 64px 100px;
 `;
 
 const MainHeader = styled('header')`

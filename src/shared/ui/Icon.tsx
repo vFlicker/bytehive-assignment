@@ -11,7 +11,8 @@ type IconProps = PropsWithChildren<{
 export const enum IconName {
   ChevronRight = 'chevron-right',
   File = 'file',
-  Arrow = 'arrow',
+  ArrowRight = 'arrow-right',
+  ArrowDown = 'arrow-down',
   HomeSmile = 'home-smile',
   BarChart = 'bar-chart',
   LineChartUp = 'line-chart-up',
@@ -44,7 +45,8 @@ export function Icon(props: IconProps) {
 const IconNameToIconSize = {
   [IconName.ChevronRight]: IconSize.ExtraSmall,
   [IconName.File]: IconSize.Small,
-  [IconName.Arrow]: IconSize.Medium,
+  [IconName.ArrowRight]: IconSize.Medium,
+  [IconName.ArrowDown]: IconSize.Medium,
   [IconName.HomeSmile]: IconSize.Medium,
   [IconName.BarChart]: IconSize.Medium,
   [IconName.LineChartUp]: IconSize.Medium,

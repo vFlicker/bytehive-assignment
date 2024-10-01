@@ -35,6 +35,9 @@ export function TopBar(): JSX.Element {
           <Typography variant="body2" component="span">
             {user.name}
           </Typography>
+          <IconButton color="secondary" aria-label="add an alarm">
+            <Icon name={IconName.ArrowDown} />
+          </IconButton>
         </StyledToolbar>
       </StyledAppBar>
       <Toolbar /> {/* Fixes the content position */}

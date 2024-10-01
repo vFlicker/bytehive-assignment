@@ -24,6 +24,8 @@ const theme = createTheme({
     h4: {
       fontFamily: FontType.PlusJakartaSans,
       fontWeight: 700,
+      fontSize: '32px',
+      lineHeight: '120%',
     },
     h5: {
       fontFamily: FontType.PlusJakartaSans,
