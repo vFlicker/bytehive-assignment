@@ -29,6 +29,7 @@ const StyledToolbar = styled(Toolbar)`
 `;
 
 const StyledAppBar = styled(AppBar)`
+  background-color: #ffffff;
   height: 58px;
   padding: 0 24px 0 308px;
 `;

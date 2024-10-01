@@ -1,10 +1,12 @@
 import { ComponentType } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+
+import { browserHistory } from '~/shared/libs';
+import { HistoryRouter } from '~/shared/ui';
 
 export const withRouter = (Component: ComponentType) => () => {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Component />
-    </BrowserRouter>
+    </HistoryRouter>
   );
 };

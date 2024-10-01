@@ -1,7 +1,7 @@
 import { defineConfig } from 'orval';
 
 export default defineConfig({
-  devias: {
+  interviewAPI: {
     output: {
       mode: 'single',
       target: 'src/shared/api',

@@ -1,7 +1,9 @@
 import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { StatusCodes } from 'http-status-codes';
 
 import { backendBaseUrl } from '~/shared/config';
-import { tokenStorage } from '~/shared/libs';
+import { browserHistory, tokenStorage } from '~/shared/libs';
+import { AppRoute } from '~/shared/router';
 
 export const AXIOS_INSTANCE = Axios.create({ baseURL: backendBaseUrl });
 
@@ -14,6 +16,18 @@ AXIOS_INSTANCE.interceptors.request.use((config) => {
 
   return config;
 });
+
+AXIOS_INSTANCE.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === StatusCodes.UNAUTHORIZED) {
+      tokenStorage.dropToken();
+      browserHistory.push(AppRoute.Login);
+    }
+
+    return Promise.reject(error);
+  },
+);
 
 export const customInstance = <T>(config: AxiosRequestConfig): Promise<T> => {
   const source = Axios.CancelToken.source();
