@@ -1,15 +1,11 @@
 import { styled } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 
-import { useGetUserProfile } from '~/shared/api';
-
 import { Main } from './Main';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 
 export function DashboardPage(): JSX.Element {
-  const { data: user } = useGetUserProfile();
-
   return (
     <StyledDashboardLayout>
       <Helmet>
@@ -18,7 +14,6 @@ export function DashboardPage(): JSX.Element {
 
       <Sidebar />
       <StyledFoo>
-        <p>User email is: {user?.email}</p>
         <TopBar />
         <Main />
       </StyledFoo>

@@ -41,6 +41,8 @@ const theme = createTheme({
     h6: {
       fontFamily: FontType.PlusJakartaSans,
       fontWeight: 700,
+      fontSize: '18px',
+      lineHeight: '120%',
     },
   },
   palette: {
@@ -49,9 +51,21 @@ const theme = createTheme({
     },
     text: {
       primary: '#111927',
+      secondary: '#6C737F',
     },
+    success: {
+      main: '#15B79E',
+    },
+    divider: '#F2F4F7',
   },
   components: {
+    MuiCardHeader: {
+      styleOverrides: {
+        root: {
+          padding: '32px 24px 16px',
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {
@@ -82,6 +96,7 @@ const theme = createTheme({
           padding: '8px 22px',
           borderRadius: '12px',
           fontWeight: 600,
+          boxShadow: '0px 1px 2px 0px rgba(0, 0, 0, 0.08)',
         },
       },
     },

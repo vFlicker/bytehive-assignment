@@ -1,8 +1,11 @@
 import { AppBar, Avatar, IconButton, styled, Toolbar } from '@mui/material';
 
+import { useGetUserProfile } from '~/shared/api';
 import { Icon, IconName } from '~/shared/ui';
 
 export function TopBar(): JSX.Element {
+  const { data: user } = useGetUserProfile();
+
   return (
     <>
       <StyledAppBar position="fixed" color="transparent" elevation={0}>
@@ -10,6 +13,7 @@ export function TopBar(): JSX.Element {
           <IconButton color="inherit">
             <Icon name={IconName.Bell} />
           </IconButton>
+          <p>User email is: {user?.email}</p>
           <Avatar>JD</Avatar>
         </StyledToolbar>
       </StyledAppBar>
@@ -26,5 +30,5 @@ const StyledToolbar = styled(Toolbar)`
 
 const StyledAppBar = styled(AppBar)`
   height: 58px;
-  padding: 0 24px 0 284px;
+  padding: 0 24px 0 308px;
 `;

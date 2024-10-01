@@ -2,22 +2,40 @@ import { Button, styled, Typography } from '@mui/material';
 
 import { Icon, IconName } from '~/shared/ui';
 
+// import { ProductList } from './ProductList';
+import { SalesRevenueChart } from './SalesRevenueChart';
+
 export function Main(): JSX.Element {
   return (
     <StyledContainer>
-      <Typography variant="h6">E-commerce</Typography>
+      <MainHeader>
+        <Typography variant="h6">E-commerce</Typography>
 
-      <Button variant="contained" startIcon={<Icon name={IconName.Refresh} />}>
-        Sync Data
-      </Button>
+        <Button
+          variant="contained"
+          startIcon={<Icon name={IconName.Refresh} />}
+        >
+          Sync Data
+        </Button>
+      </MainHeader>
+      <div>
+        <SalesRevenueChart />
+      </div>
     </StyledContainer>
   );
 }
 
 const StyledContainer = styled('main')`
   display: flex;
-  align-self: center;
-  justify-content: space-between;
-  width: 1440px;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 1440px;
   padding: 24px 24px 64px 24px;
+`;
+
+const MainHeader = styled('header')`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;

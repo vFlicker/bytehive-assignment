@@ -57,7 +57,7 @@ function Login(): JSX.Element {
 
   return (
     <StyledCard>
-      <StyledCardHeader
+      <CardHeader
         title={
           <Typography component="h1" variant="h6">
             Log in
@@ -117,10 +117,6 @@ const StyledCard = styled(Card)`
   max-width: 444px;
   margin: auto;
   border-radius: 16px;
-`;
-
-const StyledCardHeader = styled(CardHeader)`
-  padding: 32px 24px 16px;
 `;
 
 const StyledCardContent = styled(CardContent)`

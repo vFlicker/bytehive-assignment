@@ -22,7 +22,7 @@ export function RegisterPage(): JSX.Element {
 function Register(): JSX.Element {
   return (
     <StyledCard>
-      <StyledCardHeader
+      <CardHeader
         title={
           <Typography component="h1" variant="h6">
             Register
@@ -52,8 +52,4 @@ const StyledCard = styled(Card)`
   min-height: 300px;
   margin: auto;
   border-radius: 16px;
-`;
-
-const StyledCardHeader = styled(CardHeader)`
-  padding: 32px 24px 16px;
 `;

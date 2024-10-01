@@ -28,6 +28,12 @@ export function SpriteWithIcons() {
           strokeLinejoin="round"
         />
       </symbol>
+      <symbol id={IconName.Arrow} viewBox="0 0 20 20">
+        <path
+          d="M9.99998 3.33331L8.82498 4.50831L13.475 9.16665H3.33331V10.8333H13.475L8.82498 15.4916L9.99998 16.6666L16.6666 9.99998L9.99998 3.33331Z"
+          fill="#111927"
+        />
+      </symbol>
       <symbol id={IconName.HomeSmile} viewBox="0 0 20 20">
         <path
           opacity="0.12"
