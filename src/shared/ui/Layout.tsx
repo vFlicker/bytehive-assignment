@@ -8,19 +8,13 @@ type LayoutProps = PropsWithChildren;
 export function Layout({ children }: LayoutProps): JSX.Element {
   return (
     <StyledWrapper>
-      <Header />
+      <StyledHeader>
+        <Container>
+          <img src={darkLogoIcon} alt="Devias kit pro logo" />
+        </Container>
+      </StyledHeader>
       <StyledMain>{children}</StyledMain>
     </StyledWrapper>
-  );
-}
-
-function Header(): JSX.Element {
-  return (
-    <StyledHeader>
-      <Container>
-        <img src={darkLogoIcon} alt="Devias kit pro logo" />
-      </Container>
-    </StyledHeader>
   );
 }
 

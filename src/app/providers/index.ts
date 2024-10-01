@@ -1,5 +1,6 @@
 import compose from 'compose-function';
 
+import { withErrorBoundary } from './withErrorBoundary';
 import { withHelmet } from './withHelmet';
 import { withQueryClient } from './withQueryClient';
 import { withRouter } from './withRouter';
@@ -10,4 +11,5 @@ export const withProviders = compose(
   withHelmet,
   withRouter,
   withTheme,
+  withErrorBoundary,
 );

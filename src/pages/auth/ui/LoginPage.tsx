@@ -13,9 +13,7 @@ import { Helmet } from 'react-helmet-async';
 import { usePostApiAuthLogin } from '~/shared/api';
 import { tokenStorage } from '~/shared/libs';
 import { AppRoute } from '~/shared/router';
-import { Link } from '~/shared/ui';
-
-import { Layout } from './Layout';
+import { Layout, Link } from '~/shared/ui';
 
 export function LoginPage(): JSX.Element {
   return (
@@ -29,6 +27,10 @@ export function LoginPage(): JSX.Element {
   );
 }
 
+type Response = {
+  token: tokenStorage.Token;
+};
+
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -40,15 +42,13 @@ function Login(): JSX.Element {
 
     if (emailRef.current !== null && passwordRef.current !== null) {
       try {
-        const data = {
+        const loginCredentials = {
           email: emailRef.current.value,
           password: passwordRef.current.value,
         };
-        // TODO: Fix types in swagger. Return `token` instead of `accessToken`.
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const { token } = await mutation.mutateAsync({ data });
-        tokenStorage.saveToken(token);
+        const data = await mutation.mutateAsync({ data: loginCredentials });
+        const response = data as unknown as Response; // TODO: fix the type casting
+        tokenStorage.saveToken(response.token);
       } catch (error) {
         console.error('Error:', error);
       }

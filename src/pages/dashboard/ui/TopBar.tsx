@@ -1,10 +1,28 @@
-import { AppBar, Avatar, IconButton, styled, Toolbar } from '@mui/material';
+import {
+  AppBar,
+  Avatar,
+  IconButton,
+  styled,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 
 import { useGetUserProfile } from '~/shared/api';
-import { Icon, IconName } from '~/shared/ui';
+import { Icon, IconName, Loader } from '~/shared/ui';
+
+type User = {
+  id: number;
+  name: string;
+  email: string;
+  avatar: string;
+};
 
 export function TopBar(): JSX.Element {
-  const { data: user } = useGetUserProfile();
+  const { data, isLoading, isError } = useGetUserProfile();
+  const user = data as unknown as User; // TODO: fix the type casting
+
+  if (isLoading) return <Loader />;
+  if (isError) throw new Error('Failed to load user profile');
 
   return (
     <>
@@ -13,8 +31,10 @@ export function TopBar(): JSX.Element {
           <IconButton color="inherit">
             <Icon name={IconName.Bell} />
           </IconButton>
-          <p>User email is: {user?.email}</p>
-          <Avatar>JD</Avatar>
+          <Avatar src={user.avatar} alt={`Avatar of ${user.name}`} />
+          <Typography variant="body2" component="span">
+            {user.name}
+          </Typography>
         </StyledToolbar>
       </StyledAppBar>
       <Toolbar /> {/* Fixes the content position */}

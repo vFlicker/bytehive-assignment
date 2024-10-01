@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { LoginPage, RegisterPage } from '~/pages/auth';
 import { DashboardPage } from '~/pages/dashboard';
+import { NotFoundPage } from '~/pages/errors';
 import { AppRoute } from '~/shared/router';
 import { PrivateRoute } from '~/shared/ui';
 
@@ -19,6 +20,7 @@ export function Routing(): JSX.Element {
       />
       <Route path={AppRoute.Login} element={<LoginPage />} />
       <Route path={AppRoute.Register} element={<RegisterPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
