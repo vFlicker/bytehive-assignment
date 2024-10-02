@@ -1,9 +1,10 @@
-import { Card, CardHeader, Typography } from '@mui/material';
-import { styled } from '@mui/system';
+import { CardHeader, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 
 import { AppRoute } from '~/shared/router';
 import { Layout, Link } from '~/shared/ui';
+
+import { StyledCard } from './styles';
 
 export function RegisterPage(): JSX.Element {
   return (
@@ -43,11 +44,3 @@ function Register(): JSX.Element {
     </StyledCard>
   );
 }
-
-const StyledCard = styled(Card)`
-  width: 100%;
-  max-width: 444px;
-  min-height: 300px;
-  margin: auto;
-  border-radius: 16px;
-`;

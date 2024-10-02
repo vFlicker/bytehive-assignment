@@ -1,11 +1,28 @@
 import { Button, styled, Typography } from '@mui/material';
 
-import { Icon, IconName } from '~/shared/ui';
-
-import { ProductList } from './ProductList';
-import { SalesRevenueChart } from './SalesRevenueChart';
+import { TopSellingProductsCard } from '~/entities/product';
+import { SalesRevenueChart } from '~/entities/sales/';
+import { useGetApiProducts, useGetApiSalesRevenue } from '~/shared/api';
+import { Icon, IconName, Loader } from '~/shared/ui';
 
 export function Main(): JSX.Element {
+  const {
+    data: products,
+    isLoading: isProductsLoading,
+    isError: isProductsError,
+  } = useGetApiProducts();
+
+  const {
+    data: sales,
+    isLoading: isSalesLoading,
+    isError: isSalesError,
+  } = useGetApiSalesRevenue();
+
+  if (isProductsLoading || isSalesLoading) return <Loader />;
+  if (isProductsError || !products) throw new Error('Failed to load products');
+  if (isSalesError || !sales)
+    throw new Error('Failed to load sales revenue data');
+
   return (
     <StyledContainer>
       <MainHeader>
@@ -19,8 +36,8 @@ export function Main(): JSX.Element {
         </Button>
       </MainHeader>
       <Ecommerce>
-        <StyleSalesRevenueChart />
-        <ProductList />
+        <StyleSalesRevenueChart sales={sales} />
+        <TopSellingProductsCard products={products} />
       </Ecommerce>
     </StyledContainer>
   );

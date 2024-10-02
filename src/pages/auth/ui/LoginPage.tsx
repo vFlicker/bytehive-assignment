@@ -1,6 +1,5 @@
 import {
   Button,
-  Card,
   CardContent,
   CardHeader,
   TextField,
@@ -14,6 +13,8 @@ import { usePostApiAuthLogin } from '~/shared/api';
 import { tokenStorage } from '~/shared/libs';
 import { AppRoute } from '~/shared/router';
 import { Layout, Link } from '~/shared/ui';
+
+import { StyledCard } from './styles';
 
 export function LoginPage(): JSX.Element {
   return (
@@ -108,16 +109,6 @@ function Login(): JSX.Element {
     </StyledCard>
   );
 }
-
-const StyledCard = styled(Card)`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-
-  max-width: 444px;
-  margin: auto;
-  border-radius: 16px;
-`;
 
 const StyledCardContent = styled(CardContent)`
   padding: 16px 24px 32px;

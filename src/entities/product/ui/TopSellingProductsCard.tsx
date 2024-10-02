@@ -13,17 +13,20 @@ import {
   Typography,
 } from '@mui/material';
 
-import { useGetApiProducts } from '~/shared/api';
-import { Icon, IconName, Loader } from '~/shared/ui';
+import { GetApiProducts200Item } from '~/shared/api';
+import { Icon, IconName } from '~/shared/ui';
 
-export function ProductList(): JSX.Element {
-  const { data: products, isLoading, isError } = useGetApiProducts();
+type TopSellingProductsCardProps = {
+  className?: string;
+  products: GetApiProducts200Item[];
+};
 
-  if (isLoading) return <Loader />;
-  if (isError) throw new Error('Failed to load products');
-
+export function TopSellingProductsCard({
+  className,
+  products,
+}: TopSellingProductsCardProps): JSX.Element {
   return (
-    <StyledCard>
+    <StyledCard className={className}>
       <CardHeader
         title={
           <Typography variant="h6" component="h2" textTransform="capitalize">
@@ -32,12 +35,9 @@ export function ProductList(): JSX.Element {
         }
       />
       <StyledCardContent>
-        <List disablePadding>
-          {products?.map((product, index) => (
-            <StyledListItem
-              key={product.id}
-              divider={index !== products.length - 1}
-            >
+        <StyledList>
+          {products?.map((product) => (
+            <StyledListItem key={product.id} divider>
               <StyledCell>
                 <StyledPersonDetails>
                   <ListItemAvatar>
@@ -72,7 +72,7 @@ export function ProductList(): JSX.Element {
               </StyledCell>
             </StyledListItem>
           ))}
-        </List>
+        </StyledList>
         <StyledFooter>
           <StyledButton
             variant="text"
@@ -89,10 +89,6 @@ export function ProductList(): JSX.Element {
 
 const StyledCard = styled(Card)`
   max-width: 443px;
-  border-radius: 20px;
-  box-shadow:
-    0px 0px 0px 0.5px rgba(0, 0, 0, 0.03),
-    0px 5px 22px 0px rgba(0, 0, 0, 0.04);
 `;
 
 const StyledCardContent = styled(CardContent)`
@@ -103,11 +99,14 @@ const StyledCardContent = styled(CardContent)`
   }
 `;
 
+const StyledList = styled(List)`
+  padding: 0;
+`;
+
 const StyledListItem = styled(ListItem)`
   display: grid;
   grid-template-columns: 1fr 100px 100px;
   padding: 0;
-  border-bottom: 1px solid #f2f4f7;
 `;
 
 const StyledCell = styled('div')`
