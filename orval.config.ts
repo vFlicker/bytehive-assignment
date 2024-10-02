@@ -5,7 +5,7 @@ export default defineConfig({
     output: {
       mode: 'single',
       target: 'src/shared/api',
-      schemas: 'src/shared/api/model',
+      schemas: 'src/shared/api/models',
       client: 'react-query',
       prettier: true,
       override: {

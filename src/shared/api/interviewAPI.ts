@@ -28,7 +28,7 @@ import type {
   LoginRequestDto,
   TodaysStatsResponse,
   UserDto,
-} from './model';
+} from './models';
 
 /**
  * @summary Get User Profile

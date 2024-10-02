@@ -20,8 +20,11 @@ import {
   PointElement,
   ScriptableContext,
 } from 'chart.js';
-import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
+
+import { useGetApiSalesRevenue } from '~/shared/api';
+import { GetApiSalesRevenue200Item } from '~/shared/api';
+import { Loader } from '~/shared/ui';
 
 const plugin: Plugin<'line'> = {
   id: 'custom_legend_padding',
@@ -35,7 +38,6 @@ const plugin: Plugin<'line'> = {
   },
 };
 
-// Реєстрація компонентів Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -90,9 +92,9 @@ const dataFromServer = [
   },
 ] as const;
 
-type Data = typeof dataFromServer;
-
-const transformDataForChart = (data: Data): ChartData<'line'> => {
+const transformDataForChart = (
+  data: GetApiSalesRevenue200Item[],
+): ChartData<'line'> => {
   return {
     labels: data.map((item) =>
       new Date(item.date).toLocaleString('default', { month: 'short' }),
@@ -130,7 +132,6 @@ const transformDataForChart = (data: Data): ChartData<'line'> => {
 
 const options: ChartOptions<'line'> = {
   responsive: true,
-  aspectRatio: 1.5,
   plugins: {
     legend: {
       position: 'top',
@@ -177,15 +178,12 @@ type SalesRevenueChartProps = {
 export function SalesRevenueChart({
   className,
 }: SalesRevenueChartProps): JSX.Element {
-  const [chartData, setChartData] = useState<ChartData<'line'>>({
-    labels: [],
-    datasets: [],
-  });
+  const { data, isLoading, isError } = useGetApiSalesRevenue();
 
-  useEffect(() => {
-    const transformedData = transformDataForChart(dataFromServer);
-    setChartData(transformedData);
-  }, []);
+  if (isLoading) return <Loader />;
+  if (isError) throw new Error('Failed to load sales revenue data');
+
+  const chartData = transformDataForChart(data as GetApiSalesRevenue200Item[]);
 
   return (
     <StyledCard className={className}>

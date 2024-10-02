@@ -13,68 +13,15 @@ import {
   Typography,
 } from '@mui/material';
 
-import { Icon, IconName } from '~/shared/ui';
-
-const topSellingProducts = [
-  {
-    name: 'Devias Sunglasses',
-    category: 'Accessories',
-    sales: 120,
-    rank: 1,
-    image: '/path/to/sunglasses.jpg',
-  },
-  {
-    name: 'Devias Sport Shoes',
-    category: 'Shoes',
-    sales: 120,
-    rank: 2,
-    image: '/path/to/sport-shoes.jpg',
-  },
-  {
-    name: 'Devias Lenses',
-    category: 'Lenses',
-    sales: 120,
-    rank: 3,
-    image: '/path/to/lenses.jpg',
-  },
-  {
-    name: 'Devias Casual Shoes',
-    category: 'Shoes',
-    sales: 120,
-    rank: 4,
-    image: '/path/to/casual-shoes.jpg',
-  },
-  {
-    name: 'Devias Casual Shoes',
-    category: 'Shoes',
-    sales: 120,
-    rank: 5,
-    image: '/path/to/casual-shoes-2.jpg',
-  },
-  {
-    name: 'Devias Headphones',
-    category: 'Audio',
-    sales: 120,
-    rank: 6,
-    image: '/path/to/headphones.jpg',
-  },
-  {
-    name: 'Devias Tan Care',
-    category: 'Bodycare',
-    sales: 120,
-    rank: 7,
-    image: '/path/to/tan-care.jpg',
-  },
-  {
-    name: 'Devias Body Care',
-    category: 'Bodycare',
-    sales: 120,
-    rank: 8,
-    image: '/path/to/body-care.jpg',
-  },
-];
+import { useGetApiProducts } from '~/shared/api';
+import { Icon, IconName, Loader } from '~/shared/ui';
 
 export function ProductList(): JSX.Element {
+  const { data: products, isLoading, isError } = useGetApiProducts();
+
+  if (isLoading) return <Loader />;
+  if (isError) throw new Error('Failed to load products');
+
   return (
     <StyledCard>
       <CardHeader
@@ -86,25 +33,25 @@ export function ProductList(): JSX.Element {
       />
       <StyledCardContent>
         <List disablePadding>
-          {topSellingProducts.map((product, index) => (
+          {products?.map((product, index) => (
             <StyledListItem
-              key={index}
-              divider={index !== topSellingProducts.length - 1}
+              key={product.id}
+              divider={index !== products.length - 1}
             >
               <StyledCell>
                 <StyledPersonDetails>
                   <ListItemAvatar>
-                    <Avatar src={product.image} alt={product.name} />
+                    <Avatar src={product.imageUrl} alt={product.title} />
                   </ListItemAvatar>
                   <ListItemText
                     primary={
                       <Typography variant="subtitle2">
-                        {product.name}
+                        {product.title}
                       </Typography>
                     }
                     secondary={
                       <Typography variant="body2" color="text.secondary">
-                        in {product.category}
+                        in <StyledCategory>{product.category}</StyledCategory>
                       </Typography>
                     }
                   />
@@ -113,7 +60,7 @@ export function ProductList(): JSX.Element {
               <StyledCell>
                 <StyledPriceWrapper>
                   <Typography variant="subtitle2" color="success.main">
-                    {product.sales}
+                    {product.purchasesQuantity}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     in sales
@@ -121,7 +68,7 @@ export function ProductList(): JSX.Element {
                 </StyledPriceWrapper>
               </StyledCell>
               <StyledCell>
-                <StyledPositionChip label={`#${product.rank}`} />
+                <StyledPositionChip label={`#${product.leaderboardPosition}`} />
               </StyledCell>
             </StyledListItem>
           ))}
@@ -158,13 +105,14 @@ const StyledCardContent = styled(CardContent)`
 
 const StyledListItem = styled(ListItem)`
   display: grid;
-  grid-template-columns: 1fr 110px 110px;
+  grid-template-columns: 1fr 100px 100px;
   padding: 0;
+  border-bottom: 1px solid #f2f4f7;
 `;
 
 const StyledCell = styled('div')`
   display: flex;
-  padding: 10px 16px;
+  padding: 4px 16px;
 `;
 
 const StyledPersonDetails = styled('div')`
@@ -176,6 +124,10 @@ const StyledPriceWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: start;
+`;
+
+const StyledCategory = styled('span')`
+  text-transform: capitalize;
 `;
 
 const StyledPositionChip = styled(Chip)`

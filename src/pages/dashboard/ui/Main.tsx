@@ -30,8 +30,6 @@ const StyledContainer = styled('main')`
   display: flex;
   flex-direction: column;
   gap: 32px;
-  width: 100%;
-  max-width: 1440px;
   padding: 24px 100px 64px 100px;
 `;
 
