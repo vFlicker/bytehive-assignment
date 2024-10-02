@@ -1,15 +1,39 @@
-import { Box, Typography } from '@mui/material';
+import 'chartjs-adapter-date-fns'; // Для роботи з датами
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  styled,
+  Typography,
+} from '@mui/material';
 import {
   CategoryScale,
   Chart as ChartJS,
+  ChartData,
+  ChartOptions,
+  Filler,
   Legend,
   LinearScale,
   LineElement,
+  Plugin,
   PointElement,
-  Title,
-  Tooltip,
+  ScriptableContext,
 } from 'chart.js';
+import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
+
+const plugin: Plugin<'line'> = {
+  id: 'custom_legend_padding',
+  beforeInit(chart) {
+    if (!chart.legend) return;
+    const originalFit = chart.legend.fit;
+    chart.legend.fit = function fit() {
+      originalFit.bind(chart.legend)();
+      this.height += 20;
+    };
+  },
+};
 
 // Реєстрація компонентів Chart.js
 ChartJS.register(
@@ -17,52 +41,100 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
-  Title,
-  Tooltip,
   Legend,
+  Filler,
 );
 
-const data = {
-  labels: [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ],
-  datasets: [
-    {
-      label: 'New Customers',
-      data: [50, 100, 150, 200, 150, 250, 200, 300, 250, 350, 400, 450],
-      borderColor: '#3f51b5',
-      backgroundColor: 'rgba(63, 81, 181, 0.2)',
-      fill: true,
-      tension: 0.4,
-    },
-    {
-      label: 'Up/Cross-Selling',
-      data: [70, 90, 110, 130, 140, 180, 160, 190, 170, 210, 230, 240],
-      borderColor: '#e57373',
-      backgroundColor: 'rgba(229, 115, 115, 0.2)',
-      fill: true,
-      tension: 0.4,
-    },
-  ],
+const dataFromServer = [
+  {
+    id: 1,
+    date: '2023-01-01T00:00:00.000Z',
+    newCustomers: 50,
+    upCrossSelling: 30,
+  },
+  {
+    id: 2,
+    date: '2023-02-01T00:00:00.000Z',
+    newCustomers: 40,
+    upCrossSelling: 25,
+  },
+  {
+    id: 3,
+    date: '2023-03-01T00:00:00.000Z',
+    newCustomers: 60,
+    upCrossSelling: 35,
+  },
+  {
+    id: 4,
+    date: '2023-04-01T00:00:00.000Z',
+    newCustomers: 55,
+    upCrossSelling: 28,
+  },
+  {
+    id: 5,
+    date: '2023-05-01T00:00:00.000Z',
+    newCustomers: 45,
+    upCrossSelling: 32,
+  },
+  {
+    id: 6,
+    date: '2023-06-01T00:00:00.000Z',
+    newCustomers: 70,
+    upCrossSelling: 40,
+  },
+  {
+    id: 7,
+    date: '2023-07-01T00:00:00.000Z',
+    newCustomers: 65,
+    upCrossSelling: 38,
+  },
+] as const;
+
+type Data = typeof dataFromServer;
+
+const transformDataForChart = (data: Data): ChartData<'line'> => {
+  return {
+    labels: data.map((item) =>
+      new Date(item.date).toLocaleString('default', { month: 'short' }),
+    ),
+    datasets: [
+      {
+        label: 'New Customers',
+        borderColor: '#6366F1',
+        borderWidth: 2,
+        pointRadius: 0,
+        pointBackgroundColor: '#6366F1',
+        backgroundColor: (context: ScriptableContext<'line'>) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+          gradient.addColorStop(0, '#E0E0FC');
+          gradient.addColorStop(1, '#F7F7FE');
+          return gradient;
+        },
+        fill: 1,
+        tension: 0.4,
+        data: data.map((item) => item.newCustomers),
+      },
+      {
+        label: 'Up/Cross-Selling',
+        borderColor: '#4338CA',
+        borderWidth: 2,
+        pointRadius: 0,
+        pointBackgroundColor: '#4338CA',
+        tension: 0.4,
+        data: data.map((item) => item.upCrossSelling),
+      },
+    ],
+  };
 };
 
-const options = {
+const options: ChartOptions<'line'> = {
   responsive: true,
+  aspectRatio: 1.5,
   plugins: {
     legend: {
-      position: 'top' as const,
-      align: 'end' as const,
+      position: 'top',
+      align: 'end',
       labels: {
         usePointStyle: true,
         boxWidth: 8,
@@ -72,18 +144,68 @@ const options = {
   },
   scales: {
     y: {
-      beginAtZero: true,
+      grid: {
+        color: '#F2F4F7 ',
+      },
+      ticks: {
+        display: false,
+      },
+      border: {
+        display: false,
+        dash: [5],
+      },
+    },
+    x: {
+      grid: {
+        display: false,
+      },
+      border: {
+        display: false,
+      },
+      type: 'category',
+      labels: dataFromServer.map((item) =>
+        new Date(item.date).toLocaleString('default', { month: 'short' }),
+      ),
     },
   },
 };
 
-export function SalesRevenueChart(): JSX.Element {
+type SalesRevenueChartProps = {
+  className?: string;
+};
+
+export function SalesRevenueChart({
+  className,
+}: SalesRevenueChartProps): JSX.Element {
+  const [chartData, setChartData] = useState<ChartData<'line'>>({
+    labels: [],
+    datasets: [],
+  });
+
+  useEffect(() => {
+    const transformedData = transformDataForChart(dataFromServer);
+    setChartData(transformedData);
+  }, []);
+
   return (
-    <Box sx={{ padding: 3, backgroundColor: 'white', borderRadius: '12px' }}>
-      <Typography variant="h6" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-        Sales Revenue
-      </Typography>
-      <Line data={data} options={options} />
-    </Box>
+    <StyledCard className={className}>
+      <CardHeader
+        title={
+          <Typography variant="h6" component="h2" textTransform="capitalize">
+            Sales Revenue
+          </Typography>
+        }
+      ></CardHeader>
+      <CardContent>
+        <Line data={chartData} options={options} plugins={[plugin]} />
+      </CardContent>
+    </StyledCard>
   );
 }
+
+const StyledCard = styled(Card)`
+  border-radius: 20px;
+  box-shadow:
+    0px 0px 0px 0.5px rgba(0, 0, 0, 0.03),
+    0px 5px 22px 0px rgba(0, 0, 0, 0.04);
+`;

@@ -2,7 +2,7 @@ import { Button, styled, Typography } from '@mui/material';
 
 import { Icon, IconName } from '~/shared/ui';
 
-// import { ProductList } from './ProductList';
+import { ProductList } from './ProductList';
 import { SalesRevenueChart } from './SalesRevenueChart';
 
 export function Main(): JSX.Element {
@@ -18,9 +18,10 @@ export function Main(): JSX.Element {
           Sync Data
         </Button>
       </MainHeader>
-      <div>
-        <SalesRevenueChart />
-      </div>
+      <Ecommerce>
+        <StyleSalesRevenueChart />
+        <ProductList />
+      </Ecommerce>
     </StyledContainer>
   );
 }
@@ -38,4 +39,13 @@ const MainHeader = styled('header')`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const Ecommerce = styled('div')`
+  display: flex;
+  gap: 32px;
+`;
+
+const StyleSalesRevenueChart = styled(SalesRevenueChart)`
+  flex-grow: 1;
 `;
