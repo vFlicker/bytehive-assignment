@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const LoginUserMessage = {
+const LoginMessage = {
   email: {
     required: 'Email is required',
     invalid: 'Invalid email format',
@@ -12,12 +12,12 @@ const LoginUserMessage = {
   },
 };
 
-export const authSchema = Yup.object().shape({
+export const loginSchema = Yup.object().shape({
   email: Yup.string()
-    .required(LoginUserMessage.email.required)
-    .email(LoginUserMessage.email.invalid),
+    .required(LoginMessage.email.required)
+    .email(LoginMessage.email.invalid),
   password: Yup.string()
-    .required(LoginUserMessage.password.required)
-    .min(6, LoginUserMessage.password.min)
-    .max(36, LoginUserMessage.password.max),
+    .required(LoginMessage.password.required)
+    .min(6, LoginMessage.password.min)
+    .max(36, LoginMessage.password.max),
 });

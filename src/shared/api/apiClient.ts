@@ -5,9 +5,10 @@ import Axios, {
 } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 
-import { backendBaseUrl } from '~/shared/config';
-import { browserHistory, tokenStorage } from '~/shared/libs';
-import { AppRoute } from '~/shared/router';
+import { tokenStorage } from '~/shared/auth';
+import { AppRoute, browserHistory } from '~/shared/router';
+
+import { backendBaseUrl } from './config';
 
 export const apiClient = Axios.create({ baseURL: backendBaseUrl });
 

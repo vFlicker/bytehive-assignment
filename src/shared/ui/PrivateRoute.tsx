@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 
-import { tokenStorage } from '../libs';
-import { AppRoute } from '../router';
+import { tokenStorage } from '~/shared/auth';
+import { AppRoute } from '~/shared/router';
 
 type PrivateRouteProps = {
   children: JSX.Element;
