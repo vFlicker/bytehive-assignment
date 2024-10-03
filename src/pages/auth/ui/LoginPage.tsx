@@ -13,13 +13,10 @@ import { StyledCard } from './styles';
 
 export function LoginPage(): JSX.Element {
   const navigate = useNavigate();
-
   const hasToken = tokenStorage.hasToken();
 
   useEffect(() => {
-    if (hasToken) {
-      navigate(AppRoute.Root);
-    }
+    if (hasToken) navigate(AppRoute.Root);
   }, [hasToken, navigate]);
 
   return (

@@ -9,7 +9,7 @@ import { tokenStorage } from '~/shared/auth';
 import { AppRoute } from '~/shared/router';
 import { Input, Link } from '~/shared/ui';
 
-import { loginSchema } from '../models/loginSchema';
+import { loginSchema } from '../models';
 
 type LoginFormData = {
   email: string;
