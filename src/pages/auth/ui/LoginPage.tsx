@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Button,
   CardContent,
@@ -6,8 +7,8 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/system';
-import { SyntheticEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { usePostApiAuthLogin } from '~/shared/api';
@@ -15,6 +16,7 @@ import { tokenStorage } from '~/shared/libs';
 import { AppRoute } from '~/shared/router';
 import { Layout, Link } from '~/shared/ui';
 
+import { authSchema } from '../models/authSchema';
 import { StyledCard } from './styles';
 
 export function LoginPage(): JSX.Element {
@@ -29,28 +31,30 @@ export function LoginPage(): JSX.Element {
   );
 }
 
-function Login(): JSX.Element {
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
+type LoginFormData = {
+  email: string;
+  password: string;
+};
 
-  const mutation = usePostApiAuthLogin();
+function Login(): JSX.Element {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: yupResolver(authSchema),
+  });
+
+  const { mutateAsync: login, isPending, error } = usePostApiAuthLogin();
   const navigate = useNavigate();
 
-  const handleSubmit = async (evt: SyntheticEvent) => {
-    evt.preventDefault();
-
-    if (emailRef.current !== null && passwordRef.current !== null) {
-      try {
-        const formData = {
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-        };
-        const { token } = await mutation.mutateAsync({ data: formData });
-        tokenStorage.saveToken(token!);
-        navigate(AppRoute.Dashboard);
-      } catch (error) {
-        console.error('Error:', error);
-      }
+  const onSubmit = async (data: LoginFormData): Promise<void> => {
+    try {
+      const { token } = await login({ data });
+      tokenStorage.saveToken(token!);
+      navigate(AppRoute.Dashboard);
+    } catch (err) {
+      console.error('Error:', err);
     }
   };
 
@@ -77,20 +81,36 @@ function Login(): JSX.Element {
         }
       />
       <StyledCardContent>
-        <StyledForm onSubmit={handleSubmit}>
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
           <StyledInput
-            inputRef={emailRef}
             label="Email address"
             variant="filled"
             fullWidth
+            {...register('email')}
+            error={!!errors.email}
+            helperText={errors.email?.message}
+            autoFocus
           />
           <StyledInput
-            inputRef={passwordRef}
             label="Password"
             variant="filled"
             fullWidth
+            {...register('password')}
+            error={!!errors.password}
+            helperText={errors.password?.message}
           />
-          <Button type="submit" fullWidth variant="contained" color="primary">
+          {error && (
+            <Typography color="error" variant="body2">
+              Authentication error. Please check your data and try again.
+            </Typography>
+          )}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={isPending}
+          >
             Log in
           </Button>
           <Link
