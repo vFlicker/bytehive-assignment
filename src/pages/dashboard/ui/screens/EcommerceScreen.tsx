@@ -5,7 +5,7 @@ import { SalesRevenueChart } from '~/entities/sales/';
 import { useGetApiProducts, useGetApiSalesRevenue } from '~/shared/api';
 import { Icon, IconName, Loader } from '~/shared/ui';
 
-export function Main(): JSX.Element {
+export function EcommerceScreen(): JSX.Element {
   const {
     data: products,
     isLoading: isProductsLoading,
@@ -24,7 +24,7 @@ export function Main(): JSX.Element {
     throw new Error('Failed to load sales revenue data');
 
   return (
-    <StyledContainer>
+    <>
       <MainHeader>
         <Typography variant="h4">E-commerce</Typography>
 
@@ -39,16 +39,9 @@ export function Main(): JSX.Element {
         <StyleSalesRevenueChart sales={sales} />
         <TopSellingProductsCard products={products} />
       </Ecommerce>
-    </StyledContainer>
+    </>
   );
 }
-
-const StyledContainer = styled('main')`
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  padding: 24px 100px 64px 100px;
-`;
 
 const MainHeader = styled('header')`
   display: flex;

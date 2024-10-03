@@ -2,7 +2,6 @@ import {
   Button,
   Drawer,
   List,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   styled,
@@ -11,23 +10,14 @@ import {
 import { visuallyHidden } from '@mui/utils';
 
 import { lightLogoIcon } from '~/shared/assets';
-import { Icon, IconName } from '~/shared/ui';
+import { Icon, IconName, ListItemLink } from '~/shared/ui';
 
-const dashboardMenuItems = [
-  { text: 'Overview', icon: <Icon name={IconName.HomeSmile} /> },
-  { text: 'Analytics', icon: <Icon name={IconName.BarChart} /> },
-  { text: 'Ecommerce', icon: <Icon name={IconName.LineChartUp} /> },
-  { text: 'Crypto', icon: <Icon name={IconName.CurrencyBitcoin} /> },
-];
-
-const analyticsMenuItems = [
-  { text: 'Products', icon: <Icon name={IconName.ShoppingBag} /> },
-  { text: 'Orders', icon: <Icon name={IconName.ShoppingCart} /> },
-  { text: 'Invoices', icon: <Icon name={IconName.ReceiptCheck} /> },
-  { text: 'Logistics', icon: <Icon name={IconName.Truck} /> },
-];
+import { analyticsMenuItems, mainMenuItems } from '../config';
+import { useCurrentRoute } from '../libs';
 
 export function Sidebar(): JSX.Element {
+  const currentRoute = useCurrentRoute();
+
   return (
     <StyledDrawer variant="permanent">
       <StyledLogo src={lightLogoIcon} alt="Devias premium tier logo" />
@@ -36,11 +26,15 @@ export function Sidebar(): JSX.Element {
         <StyledMenuListTitle sx={visuallyHidden}>Main list</StyledMenuListTitle>
 
         <List>
-          {dashboardMenuItems.map((item, index) => (
-            <StyledListItemButton selected={index === 0} key={item.text}>
+          {mainMenuItems.map((item) => (
+            <ListItemLink
+              to={item.to}
+              key={item.text}
+              selected={item.to === currentRoute}
+            >
               <StyledListItemIcon>{item.icon}</StyledListItemIcon>
               <StyledListItemText primary={item.text} />
-            </StyledListItemButton>
+            </ListItemLink>
           ))}
         </List>
 
@@ -48,11 +42,15 @@ export function Sidebar(): JSX.Element {
 
         <List>
           {analyticsMenuItems.map((item) => (
-            <StyledListItemButton key={item.text}>
+            <ListItemLink
+              to={item.to}
+              key={item.text}
+              selected={item.to === currentRoute}
+            >
               <StyledListItemIcon>{item.icon}</StyledListItemIcon>
               <StyledListItemText primary={item.text} />
               <Icon name={IconName.ChevronRight} />
-            </StyledListItemButton>
+            </ListItemLink>
           ))}
         </List>
       </StyledNav>
@@ -94,30 +92,6 @@ const StyledMenuListTitle = styled(Typography)`
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-`;
-
-const StyledListItemButton = styled(ListItemButton)`
-  padding: 6px 12px;
-  border-radius: 12px;
-  color: #b5bcc4;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.04);
-  }
-
-  &.Mui-selected {
-    color: #ffffff;
-
-    .MuiSvgIcon-root {
-      color: #6366f1;
-    }
-
-    background-color: rgba(255, 255, 255, 0.04);
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.04);
-    }
-  }
 `;
 
 const StyledListItemIcon = styled(ListItemIcon)`

@@ -1,5 +1,6 @@
 export const enum AppRoute {
-  Dashboard = '/',
+  Root = '/',
+  Dashboard = '/dashboard',
   Login = '/login',
   Register = '/register',
   PasswordReset = '/password-reset',

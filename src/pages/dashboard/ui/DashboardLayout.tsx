@@ -1,11 +1,11 @@
 import { styled } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
+import { Outlet } from 'react-router-dom';
 
-import { Main } from './Main';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 
-export function DashboardPage(): JSX.Element {
+export function DashboardLayout(): JSX.Element {
   return (
     <StyledDashboardLayout>
       <Helmet>
@@ -13,11 +13,12 @@ export function DashboardPage(): JSX.Element {
       </Helmet>
 
       <Sidebar />
-      <DashboardContainer>
+      <StyledDashboardContainer>
         <TopBar />
-        {/* TODO: Routing should be here  */}
-        <Main />
-      </DashboardContainer>
+        <StyledScreenContainer>
+          <Outlet />
+        </StyledScreenContainer>
+      </StyledDashboardContainer>
     </StyledDashboardLayout>
   );
 }
@@ -27,7 +28,14 @@ const StyledDashboardLayout = styled('div')`
   grid-template-columns: 280px 1fr;
 `;
 
-const DashboardContainer = styled('div')`
+const StyledDashboardContainer = styled('div')`
   display: flex;
   flex-direction: column;
+`;
+
+const StyledScreenContainer = styled('main')`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px 100px 64px 100px;
 `;
