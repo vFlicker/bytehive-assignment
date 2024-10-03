@@ -19,8 +19,8 @@ import type {
 } from '@tanstack/react-query';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import type { ErrorType } from './client';
-import { customInstance } from './client';
+import type { ErrorType } from './apiClient';
+import { customInstance } from './apiClient';
 import type {
   AuthResponseDto,
   GetApiProducts200Item,

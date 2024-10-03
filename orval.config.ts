@@ -4,13 +4,13 @@ export default defineConfig({
   interviewAPI: {
     output: {
       mode: 'single',
-      target: 'src/shared/api/apiServices.ts',
+      target: 'src/shared/api/apiService.ts',
       schemas: 'src/shared/api/models',
       client: 'react-query',
       prettier: true,
       override: {
         mutator: {
-          path: './src/shared/api/client.ts',
+          path: './src/shared/api/apiClient.ts',
           name: 'customInstance',
         },
       },

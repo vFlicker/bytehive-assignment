@@ -46,7 +46,7 @@ function Login(): JSX.Element {
           password: passwordRef.current.value,
         };
         const { token } = await mutation.mutateAsync({ data: formData });
-        tokenStorage.saveToken(token);
+        tokenStorage.saveToken(token!);
         navigate(AppRoute.Dashboard);
       } catch (error) {
         console.error('Error:', error);

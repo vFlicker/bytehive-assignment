@@ -7,8 +7,8 @@
  */
 
 export interface UserDto {
-  id: number;
-  name: string;
-  email: string;
   avatar: string;
+  email: string;
+  id: string;
+  name: string;
 }

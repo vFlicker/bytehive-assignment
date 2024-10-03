@@ -1,13 +1,17 @@
-import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import Axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import { StatusCodes } from 'http-status-codes';
 
 import { backendBaseUrl } from '~/shared/config';
 import { browserHistory, tokenStorage } from '~/shared/libs';
 import { AppRoute } from '~/shared/router';
 
-export const AXIOS_INSTANCE = Axios.create({ baseURL: backendBaseUrl });
+export const apiClient = Axios.create({ baseURL: backendBaseUrl });
 
-AXIOS_INSTANCE.interceptors.request.use((config) => {
+const setAuthorizationHeader = (config: InternalAxiosRequestConfig) => {
   const token = tokenStorage.getToken();
 
   if (token && config.headers) {
@@ -15,23 +19,27 @@ AXIOS_INSTANCE.interceptors.request.use((config) => {
   }
 
   return config;
-});
+};
 
-AXIOS_INSTANCE.interceptors.response.use(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const handleUnauthorizedError = (error: any) => {
+  if (error.response?.status === StatusCodes.UNAUTHORIZED) {
+    tokenStorage.dropToken();
+    browserHistory.push(AppRoute.Login);
+  }
+
+  return Promise.reject(error);
+};
+
+apiClient.interceptors.request.use(setAuthorizationHeader);
+apiClient.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === StatusCodes.UNAUTHORIZED) {
-      tokenStorage.dropToken();
-      browserHistory.push(AppRoute.Login);
-    }
-
-    return Promise.reject(error);
-  },
+  handleUnauthorizedError,
 );
 
 export const customInstance = <T>(config: AxiosRequestConfig): Promise<T> => {
   const source = Axios.CancelToken.source();
-  const promise = AXIOS_INSTANCE({ ...config, cancelToken: source.token }).then(
+  const promise = apiClient({ ...config, cancelToken: source.token }).then(
     ({ data }) => data,
   );
 
