@@ -14,9 +14,8 @@ import { Line } from 'react-chartjs-2';
 
 import { GetApiSalesRevenue200Item } from '~/shared/api';
 
-import { createChartData } from '../config';
-import { createChartOptions } from '../config';
-import { createCustomLegendMargin } from '../libs';
+import { getChartData, getChartOptions } from '../config';
+import { initLegendMarginPlugin } from '../libs';
 
 type SalesRevenueChartProps = {
   className?: string;
@@ -36,12 +35,6 @@ export function SalesRevenueChart({
   className,
   sales,
 }: SalesRevenueChartProps): JSX.Element {
-  const newCustomers = sales.map((item) => item.newCustomers);
-  const upCrossSelling = sales.map((item) => item.upCrossSelling);
-  const labels = sales.map(({ date }) => {
-    return new Date(date).toLocaleString('default', { month: 'short' });
-  });
-
   return (
     <Card className={className}>
       <CardHeader
@@ -53,9 +46,9 @@ export function SalesRevenueChart({
       ></CardHeader>
       <CardContent>
         <Line
-          data={createChartData(newCustomers, upCrossSelling)}
-          options={createChartOptions(labels)}
-          plugins={[createCustomLegendMargin(20)]}
+          data={getChartData(sales)}
+          options={getChartOptions(sales)}
+          plugins={[initLegendMarginPlugin(20)]}
         />
       </CardContent>
     </Card>

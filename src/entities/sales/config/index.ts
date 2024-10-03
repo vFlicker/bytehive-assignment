@@ -1,2 +1,2 @@
-export * from './createChartData';
-export * from './createChartOptions';
+export * from './getChartData';
+export * from './getChartOptions';

@@ -4,7 +4,7 @@ export default defineConfig({
   interviewAPI: {
     output: {
       mode: 'single',
-      target: 'src/shared/api',
+      target: 'src/shared/api/apiServices.ts',
       schemas: 'src/shared/api/models',
       client: 'react-query',
       prettier: true,

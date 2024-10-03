@@ -1,11 +1,13 @@
-import { ChartData, Point, ScriptableContext } from 'chart.js';
+import { ChartData, ScriptableContext } from 'chart.js';
 
-type Data = (number | Point | null)[];
+import { GetApiSalesRevenue200Item } from '~/shared/api';
 
-export const createChartData = (
-  newCustomers: Data,
-  upCrossSelling: Data,
+export const getChartData = (
+  sales: GetApiSalesRevenue200Item[],
 ): ChartData<'line'> => {
+  const newCustomers = sales.map((item) => item.newCustomers);
+  const upCrossSelling = sales.map((item) => item.upCrossSelling);
+
   return {
     datasets: [
       {

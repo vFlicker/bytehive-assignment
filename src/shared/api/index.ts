@@ -1,3 +1,3 @@
-export * from './interviewAPI';
+export * from './apiServices';
 export * from './models';
 export * from './queryClient';

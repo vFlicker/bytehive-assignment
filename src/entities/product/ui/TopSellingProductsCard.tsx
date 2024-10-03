@@ -1,20 +1,18 @@
 import {
-  Avatar,
   Button,
   Card,
   CardContent,
   CardHeader,
-  Chip,
   List,
   ListItem,
-  ListItemAvatar,
-  ListItemText,
   styled,
   Typography,
 } from '@mui/material';
 
 import { GetApiProducts200Item } from '~/shared/api';
 import { Icon, IconName } from '~/shared/ui';
+
+import { TopSellingProductsItem } from './TopSellingProductsItem';
 
 type TopSellingProductsCardProps = {
   className?: string;
@@ -38,48 +36,16 @@ export function TopSellingProductsCard({
         <StyledList>
           {products?.map((product) => (
             <StyledListItem key={product.id} divider>
-              <StyledCell>
-                <StyledPersonDetails>
-                  <ListItemAvatar>
-                    <Avatar src={product.imageUrl} alt={product.title} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      <Typography variant="subtitle2">
-                        {product.title}
-                      </Typography>
-                    }
-                    secondary={
-                      <Typography variant="body2" color="text.secondary">
-                        in <StyledCategory>{product.category}</StyledCategory>
-                      </Typography>
-                    }
-                  />
-                </StyledPersonDetails>
-              </StyledCell>
-              <StyledCell>
-                <StyledPriceWrapper>
-                  <Typography variant="subtitle2" color="success.main">
-                    {product.purchasesQuantity}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    in sales
-                  </Typography>
-                </StyledPriceWrapper>
-              </StyledCell>
-              <StyledCell>
-                <StyledPositionChip label={`#${product.leaderboardPosition}`} />
-              </StyledCell>
+              <TopSellingProductsItem product={product} />
             </StyledListItem>
           ))}
         </StyledList>
         <StyledFooter>
           <StyledButton
             variant="text"
-            color="inherit"
             endIcon={<Icon name={IconName.ArrowRight} />}
           >
-            See All Products
+            See all products
           </StyledButton>
         </StyledFooter>
       </StyledCardContent>
@@ -104,42 +70,8 @@ const StyledList = styled(List)`
 `;
 
 const StyledListItem = styled(ListItem)`
-  display: grid;
-  grid-template-columns: 1fr 100px 100px;
+  display: block;
   padding: 0;
-`;
-
-const StyledCell = styled('div')`
-  display: flex;
-  padding: 4px 16px;
-`;
-
-const StyledPersonDetails = styled('div')`
-  display: flex;
-  align-items: center;
-`;
-
-const StyledPriceWrapper = styled('div')`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-`;
-
-const StyledCategory = styled('span')`
-  text-transform: capitalize;
-`;
-
-const StyledPositionChip = styled(Chip)`
-  margin-left: auto;
-  padding: 6px 10px;
-  border-radius: 12px;
-
-  & .MuiChip-label {
-    padding: 0;
-    font-weight: 500;
-    line-height: 18px;
-    letter-spacing: 0.16px;
-  }
 `;
 
 const StyledFooter = styled('div')`
@@ -147,5 +79,7 @@ const StyledFooter = styled('div')`
 `;
 
 const StyledButton = styled(Button)`
+  color: inherit;
+  text-transform: capitalize;
   box-shadow: none;
 `;

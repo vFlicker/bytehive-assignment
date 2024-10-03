@@ -1,1 +1,1 @@
-export * from './createCustomLegendMargin';
+export * from './initLegendMarginPlugin';

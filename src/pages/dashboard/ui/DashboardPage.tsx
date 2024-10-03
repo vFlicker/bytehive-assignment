@@ -15,6 +15,7 @@ export function DashboardPage(): JSX.Element {
       <Sidebar />
       <DashboardContainer>
         <TopBar />
+        {/* TODO: Routing should be here  */}
         <Main />
       </DashboardContainer>
     </StyledDashboardLayout>

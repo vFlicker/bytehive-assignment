@@ -7,5 +7,5 @@
  */
 
 export interface AuthResponseDto {
-  accessToken: string;
+  token: string;
 }

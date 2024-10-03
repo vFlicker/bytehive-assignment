@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Drawer,
   List,
@@ -9,6 +8,7 @@ import {
   styled,
   Typography,
 } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
 
 import { lightLogoIcon } from '~/shared/assets';
 import { Icon, IconName } from '~/shared/ui';
@@ -32,8 +32,10 @@ export function Sidebar(): JSX.Element {
     <StyledDrawer variant="permanent">
       <StyledLogo src={lightLogoIcon} alt="Devias premium tier logo" />
 
-      <StyledListsWrapper>
-        <List component="nav" aria-label="Main list">
+      <StyledNav>
+        <StyledMenuListTitle sx={visuallyHidden}>Main list</StyledMenuListTitle>
+
+        <List>
           {dashboardMenuItems.map((item, index) => (
             <StyledListItemButton selected={index === 0} key={item.text}>
               <StyledListItemIcon>{item.icon}</StyledListItemIcon>
@@ -44,7 +46,7 @@ export function Sidebar(): JSX.Element {
 
         <StyledMenuListTitle>Analytics</StyledMenuListTitle>
 
-        <List component="nav" aria-label="Analytics list">
+        <List>
           {analyticsMenuItems.map((item) => (
             <StyledListItemButton key={item.text}>
               <StyledListItemIcon>{item.icon}</StyledListItemIcon>
@@ -53,7 +55,7 @@ export function Sidebar(): JSX.Element {
             </StyledListItemButton>
           ))}
         </List>
-      </StyledListsWrapper>
+      </StyledNav>
 
       <StyledDocumentationButton
         variant="outlined"
@@ -82,7 +84,7 @@ const StyledLogo = styled('img')`
   margin-bottom: 20px;
 `;
 
-const StyledListsWrapper = styled(Box)`
+const StyledNav = styled('nav')`
   margin-bottom: 20px;
 `;
 

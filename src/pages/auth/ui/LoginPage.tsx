@@ -8,6 +8,7 @@ import {
 import { styled } from '@mui/system';
 import { SyntheticEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 
 import { usePostApiAuthLogin } from '~/shared/api';
 import { tokenStorage } from '~/shared/libs';
@@ -28,28 +29,25 @@ export function LoginPage(): JSX.Element {
   );
 }
 
-type Response = {
-  token: tokenStorage.Token;
-};
-
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const mutation = usePostApiAuthLogin();
+  const navigate = useNavigate();
 
   const handleSubmit = async (evt: SyntheticEvent) => {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
       try {
-        const loginCredentials = {
+        const formData = {
           email: emailRef.current.value,
           password: passwordRef.current.value,
         };
-        const data = await mutation.mutateAsync({ data: loginCredentials });
-        const response = data as unknown as Response; // TODO: fix the type casting
-        tokenStorage.saveToken(response.token);
+        const { token } = await mutation.mutateAsync({ data: formData });
+        tokenStorage.saveToken(token);
+        navigate(AppRoute.Dashboard);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -80,16 +78,16 @@ function Login(): JSX.Element {
       />
       <StyledCardContent>
         <StyledForm onSubmit={handleSubmit}>
-          <TextField
+          <StyledInput
             inputRef={emailRef}
             label="Email address"
-            variant="outlined"
+            variant="filled"
             fullWidth
           />
-          <TextField
+          <StyledInput
             inputRef={passwordRef}
             label="Password"
-            variant="outlined"
+            variant="filled"
             fullWidth
           />
           <Button type="submit" fullWidth variant="contained" color="primary">
@@ -118,4 +116,42 @@ const StyledForm = styled('form')`
   display: flex;
   flex-direction: column;
   gap: 16px;
+`;
+
+const StyledInput = styled(TextField)`
+  border: 1px solid #f2f4f7;
+  border-radius: 8px;
+
+  &:hover::before {
+    border: none;
+  }
+
+  &:hover,
+  &:active {
+    background-color: #ffffff;
+  }
+
+  .MuiInputBase-root {
+    background-color: #ffffff;
+    border: none;
+
+    &::before,
+    &::after,
+    &:hover:not(.Mui-disabled, .Mui-error):before {
+      border-bottom: none;
+    }
+
+    &:hover,
+    &:active {
+      background-color: #ffffff;
+    }
+
+    &.Mui-focused {
+      background-color: #ffffff;
+    }
+  }
+
+  & .MuiInputLabel-filled.Mui-focused {
+    color: #6c737f;
+  }
 `;
